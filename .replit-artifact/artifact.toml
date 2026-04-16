@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Mystracoin Vault"
+version = "1.0.0"
+id = "artifacts/mystracoin-vault"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22310
+
+[services.development]
+run = "pnpm --filter @workspace/mystracoin-vault run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/mystracoin-vault", "run", "build" ]
+publicDir = "artifacts/mystracoin-vault/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22310"
+BASE_PATH = "/"
